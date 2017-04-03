@@ -8,10 +8,18 @@ module.exports = {
     console.log("we are in the features create function");
     console.log(req.body.title);
     console.log(req.body.duration);
+    console.log(req.body.unit);
+    function calculateDurationInSeconds(duration, unit) {
+      if (unit === "Minutes") duration *= 60;
+      if (unit === "Hours") duration *= 3600;
+      if (unit === "Days") duration *= 86400;
+      return duration // in seconds
+    }
+    var duration = calculateDurationInSeconds(req.body.duration, req.body.unit);
     return Feature
       .create({
         title: req.body.title,
-        duration: req.body.duration
+        duration: duration
       })
       .then(feature => res.status(201).send(feature))
       .catch(error => res.status(400).send(error));
