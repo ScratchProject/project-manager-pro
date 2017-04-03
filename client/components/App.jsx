@@ -12,10 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      features: featuresList
+      features: featuresList,
+      isProjView: true
     };
     this.addFeature = this.addFeature.bind(this);
     this.removeFeature = this.removeFeature.bind(this);
+    this.showUpdateForm = this.showUpdateForm.bind(this);
   }
 
   componentDidMount() {
@@ -76,6 +78,15 @@ class App extends Component {
       })
   }
 
+  showUpdateForm(index) {
+    console.log('index is:', index);
+    axios
+      .get(`/api/features/${featuresList[index].id}/items`)
+      .then(data => {
+        console.log('feature items data:', data);
+      })
+  }
+
   render() {
 
     const addFeature = this.addFeature;
@@ -85,7 +96,7 @@ class App extends Component {
     return (
       <div id="app-container" style={{ textAlign: 'center' }}>
         <CheckpointCntr addFeature={addFeature} />
-        <FeaturesCntr featuresArray={featuresArray} removeFeature={removeFeature} />
+        <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
       </div>
     );
   }
