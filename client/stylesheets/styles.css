@@ -47,21 +47,49 @@ body {
   border: 1px solid #EA0C3A;
 }
 
-.deadline {
+.deadline-container {
   margin: 10px 0 10px 0;
   padding-left: 5px;
   width: 400px;
   height: 50px;
   color: white;
   font-size: 20px;
+  justify-content: center;
+  align-items: center;
   background: transparent;
   border-style: none;
   border-radius: 5px;
   border: 1px solid white;
 }
 
-.deadline:hover {
+.deadline-container:hover {
   border: 1px solid #EA0C3A;
+}
+
+
+.deadline-num{
+  margin: 10px 0 10px 0;
+  padding-left: 5px;
+  width: 300px;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  background: transparent;
+  border-style: none;
+  border-width:0px;
+}
+
+.deadline-unit{
+  margin: 10px 0 10px 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100px;
+  height: 50px;
+  color: grey;
+  font-size: 20px;
+  background: transparent;
+  border-style: none;
+  border-width:0px;
 }
 
 #add-feature {
@@ -103,6 +131,10 @@ body {
 }
 
 .deadline-container {
+  display: flex;
+}
+
+.dropdown-container{
   display: flex;
 }
 

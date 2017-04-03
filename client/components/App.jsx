@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // retieve all the features from the database and load the initial state
+    // retrieve all the features from the database and load the initial state
     // this only runs on the first load of the page
     axios
       .get('/api/features')
@@ -42,10 +42,11 @@ class App extends Component {
   }
 
   // adds a new feature(project) to the DOM as well as pushes it to the database
-  addFeature(title, duration) {
+  addFeature(title, duration, unit) {
     let feature = {
       title: title,
-      duration: Number(duration)
+      duration: Number(duration),
+      unit: unit
     }
 
     axios
