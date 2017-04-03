@@ -10,11 +10,13 @@ class FeatureInfo extends Component {
     super(props);
     this.state = {
       title: '',
-      deadline: ''
+      deadline: '',
+      unit: ''
     };
 
     this.handleChange = this.handleTitleChange.bind(this);
     this.handleChange = this.handleDeadlineChange.bind(this);
+    this.handleChange = this.handleUnitChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -28,19 +30,25 @@ class FeatureInfo extends Component {
     this.setState({ deadline: event.target.value });
   }
 
+  handleUnitChange(event) {
+    event.preventDefault();
+    console.log("is the unit coming in?");
+    console.log(event.target.value);
+    this.setState({ unit: event.target.value });
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    this.props.addFeature(this.state.title, this.state.deadline);
-    
+    this.props.addFeature(this.state.title, this.state.deadline, this.state.unit);
+
     this.setState({
       title: '',
-      deadline: ''
+      deadline: '',
+      unit: ''
     })
   }
 
   render() {
-
-
 
     return (
       <form className="feature-form" onSubmit={this.handleSubmit}>
@@ -50,7 +58,14 @@ class FeatureInfo extends Component {
         <div className="deadline-container">
           <input type="text" id='dine' className="deadline" placeholder="Duration" value={this.state.deadline} onChange={(a) => this.handleDeadlineChange(a)} />
         </div>
-          <button type='submit' id="add-feature">Add Project</button>
+        <div className="dropdown-container">
+          <select defaultValue={this.state.unit} className="dropdown" onChange={(a) => this.handleUnitChange(a)} >
+            <option value="Minutes">Minutes</option>
+            <option value="Hours">Hours</option>
+            <option value="Days">Days</option>
+          </select>
+        </div>
+        <button type='submit' id="add-feature">Add Project</button>
       </form>
     );
   }
