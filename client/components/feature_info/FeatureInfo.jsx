@@ -56,10 +56,8 @@ class FeatureInfo extends Component {
           <input type="text" id='tit' className="feature-title" placeholder="Project Name" value={this.state.title} onChange={(a) => this.handleTitleChange(a)} />
         </div>
         <div className="deadline-container">
-          <input type="text" id='dine' className="deadline" placeholder="Duration" value={this.state.deadline} onChange={(a) => this.handleDeadlineChange(a)} />
-        </div>
-        <div className="dropdown-container">
-          <select defaultValue={this.state.unit} className="dropdown" onChange={(a) => this.handleUnitChange(a)} >
+          <input type="text" id='dine' className="deadline-num" placeholder="Duration" value={this.state.deadline} onChange={(a) => this.handleDeadlineChange(a)} />
+          <select defaultValue="Minutes" className="deadline-unit" onChange={(a) => this.handleUnitChange(a)} >
             <option value="Minutes">Minutes</option>
             <option value="Hours">Hours</option>
             <option value="Days">Days</option>
