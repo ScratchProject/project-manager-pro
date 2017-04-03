@@ -30,7 +30,7 @@ class App extends Component {
           let createdTime = Date.parse(allFeatures.data[i].createdAt);
           let currentTime = Date.now();
           let elapsed = (currentTime - createdTime) / 1000; // converts ms to secs
-          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed; 
+          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed;
         }
 
         featuresList = allFeatures.data;
@@ -76,9 +76,8 @@ class App extends Component {
       })
   }
 
-
   render() {
-    
+
     const addFeature = this.addFeature;
     const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;

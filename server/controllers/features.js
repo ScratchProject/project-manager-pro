@@ -5,6 +5,9 @@ module.exports = {
 
   // Creates instance of a project.
   create(req, res) {
+    console.log("we are in the features create function");
+    console.log(req.body.title);
+    console.log(req.body.duration);
     return Feature
       .create({
         title: req.body.title,
@@ -12,6 +15,7 @@ module.exports = {
       })
       .then(feature => res.status(201).send(feature))
       .catch(error => res.status(400).send(error));
+    // .catch(error => res.status(400).send(error));
   },
 
   // Retrieves all current projects in a database.
@@ -74,19 +78,19 @@ module.exports = {
 
   // Delete a single feature based on ID
   destroy(req, res) {
-  return Feature
-    .findById(req.params.featureId)
-    .then(feature => {
-      if (!feature) {
-        return res.status(400).send({
-          message: 'feature Not Found',
-        });
-      }
-      return feature
-        .destroy()
-        .then(() => res.status(200).send({ message: 'Feature deleted' }))
-        .catch(error => res.status(400).send(error));
-    })
-    .catch(error => res.status(400).send(error));
-},
+    return Feature
+      .findById(req.params.featureId)
+      .then(feature => {
+        if (!feature) {
+          return res.status(400).send({
+            message: 'feature Not Found',
+          });
+        }
+        return feature
+          .destroy()
+          .then(() => res.status(200).send({ message: 'Feature deleted' }))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };
