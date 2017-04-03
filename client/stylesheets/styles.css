@@ -1,0 +1,230 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+body {
+  background: #353638;
+}
+/*styling/layout for features/projects container (holds all features/projects)*/
+#features-ctnr {
+  width: auto;
+  height: auto;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+/*Add new feature/project form*/
+
+.feature-form {
+  margin: 10px;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.feature-title {
+  margin: 10px 0 10px 0;
+  padding-left: 5px;
+  width: 400px;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  background: transparent;
+  border-style: none;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.feature-title:hover {
+  border: 1px solid #EA0C3A;
+}
+
+.deadline {
+  margin: 10px 0 10px 0;
+  padding-left: 5px;
+  width: 400px;
+  height: 50px;
+  color: white;
+  font-size: 20px;
+  background: transparent;
+  border-style: none;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+
+.deadline:hover {
+  border: 1px solid #EA0C3A;
+}
+
+#add-feature {
+  margin: 10px 0 10px 0;
+  width: 150px;
+  height: 50px;
+  color: white;
+  background: none;
+  border-style: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+#add-feature:hover {
+  color: #A0FF00;
+  border: 1px solid #A0FF00;
+}
+
+/*form for creating checkpoints for feature/project*/
+.checkpoint-container {
+  margin: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 65px;
+  color: white;
+}
+
+.checkpoint {
+  margin: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.title-container {
+  display: flex;
+}
+
+.deadline-container {
+  display: flex;
+}
+
+.feature-sbm-btn-cntr {
+  display: flex;
+}
+
+.update-btn {
+  width: 50px;
+  height: 25px;
+  background: transparent;
+  border-style: none;
+  border: 1px solid white;
+}
+
+/*Layout/Styling for feature/project*/
+.feature-container {
+  margin-bottom: 40px;
+  /*border: 1px solid white;*/
+}
+
+.feature-header {
+  margin: 0 10px 0 10px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: 100;
+  color: white;
+  /*border: 1px solid white;*/
+}
+
+.tracker-container {
+  position: relative;
+  margin: 0 10px 0 10px;
+  width: 300px;
+  height: 300px;
+  /*border: 1px solid white;*/
+}
+
+/*Remove Feature button*/
+.remove-Feature {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  top: 21px;
+  left: 226px;
+  background: transparent;
+  color: #C0193B;
+  font-size: 18px;
+  font-weight: bold;
+  border-style: none;
+  border: 1px solid #C0193B;
+  border-radius: 50%;
+}
+
+.time-container {
+  position: absolute;
+  z-index: 1;
+  top: 30px;
+  left: 50px;
+  width: 200px;
+  height: 200px;
+}
+
+.prog-container {
+  position: absolute;
+  z-index: 2;
+  top: 55px;
+  left: 75px;
+  width: 150px;
+  height: 150px;
+}
+
+.update-btn {
+  position: absolute;
+  top: 250px;
+  left: 76px;
+  width: 147px;
+  height: 36px;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.time-circle .CircularProgressbar {
+  margin: 5px;
+}
+
+.prog-circle .CircularProgressbar {
+  margin: 5px;
+}
+
+.CircularProgressbar {
+  /*
+   * This fixes an issue where the CircularProgressbar svg has
+   * 0 width inside a "display: flex" container, and thus not visible.
+   *
+   * If you're not using "display: flex", you can remove this style.
+   */
+  width: 100%;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+  opacity: 0.1;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #353638;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.prog-container .CircularProgressbar .CircularProgressbar-path {
+  stroke: #A0FF00;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.time-container .CircularProgressbar .CircularProgressbar-path {
+  stroke: #EA0C3A;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
