@@ -2,6 +2,14 @@ const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
 
 module.exports = (app) => {
+  // logger function to debug through middleware
+  var myLogger = function (req, res, next) {
+    console.log(req.body)
+    console.log('LOGGED')
+    next()
+  }
+  // run logger every time a middleware is called
+  app.use(myLogger)
   // Save one feature title and the deadline to the database
   app.post('/api/features', featuresController.create);
 
@@ -10,7 +18,7 @@ module.exports = (app) => {
 
   // Add a Feature List Item to the inputted feature ID
   app.post('/api/features/:featureId/items', featureItemsController.create);
-  
+
   // Find a single feature based on ID
   app.get('/api/features/:featureId', featuresController.retrieve);
 
