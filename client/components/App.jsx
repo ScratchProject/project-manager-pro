@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FeaturesCntr from './feature/FeaturesCntr.jsx';
 import AddFeature from './add_feature/AddFeature.jsx';
 import CheckpointCntr from './checkpoint/CheckpointCntr.jsx';
+import UpdateForm from './feature/UpdateForm.jsx'
 import axios from 'axios';
 
 // This array is constant. We add and remove from it and then use it to set state.
@@ -12,10 +13,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      features: featuresList
+      features: featuresList,
+      isProjView: true,
+      editID: null,
+      featItems: null
     };
     this.addFeature = this.addFeature.bind(this);
     this.removeFeature = this.removeFeature.bind(this);
+    this.showUpdateForm = this.showUpdateForm.bind(this);
+    this.removeTask = this.removeTask.bind(this);
   }
 
   componentDidMount() {
@@ -77,16 +83,44 @@ class App extends Component {
       })
   }
 
+  showUpdateForm(index) {
+    console.log('index is:', index);
+    axios
+      .get(`/api/features/${featuresList[index].id}/items`)
+      .then(data => {
+        this.setState({isProjView: false, editID: index, featItems: data.data});
+        console.log('---------------------------------feature items data-------------------------', data.data);
+      })
+      .catch()
+  }
+
+  removeTask(featID, taskID) {
+    axios
+      .delete(`/api/features/${featID}/items/${taskID}`)
+  }
+
   render() {
 
     const addFeature = this.addFeature;
     const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;
+    const jsxToRender = this.state.isProjView
+    ? (
+      <div id="app-container" style={{ textAlign: 'center' }}>
+      <CheckpointCntr addFeature={addFeature} />
+      <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
+    </div>
+    )
+    : (
+      <div id="app-container" style={{ textAlign: 'center' }}>
+        <UpdateForm feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
+      </div>
+    );
+
 
     return (
-      <div id="app-container" style={{ textAlign: 'center' }}>
-        <CheckpointCntr addFeature={addFeature} />
-        <FeaturesCntr featuresArray={featuresArray} removeFeature={removeFeature} />
+      <div>
+        {jsxToRender}
       </div>
     );
   }

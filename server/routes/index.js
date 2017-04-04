@@ -16,7 +16,7 @@ module.exports = (app) => {
     console.log(code);
   });
   // run logger every time a middleware is called
-  app.use(myLogger)
+  // app.use(myLogger)
   // Save one feature title and the deadline to the database
   app.post('/api/features', featuresController.create);
 
@@ -26,13 +26,16 @@ module.exports = (app) => {
   // Add a Feature List Item to the inputted feature ID
   app.post('/api/features/:featureId/items', featureItemsController.create);
 
+  // get list of all featureItems associated with a feature
+  app.get('/api/features/:featureId/items', featureItemsController.list);
+
   // Find a single feature based on ID
   app.get('/api/features/:featureId', featuresController.retrieve);
 
   // Update a single feature and return the (number completed/total)
   app.put('/api/features/:featureId', featuresController.update);
 
-  // Delete a single feature 
+  // Delete a single feature
   app.delete('/api/features/:featureId', featuresController.destroy);
 
   // Delete a single feature list items

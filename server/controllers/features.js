@@ -28,6 +28,7 @@ module.exports = {
 
   // Retrieves all current projects in a database.
   list(req, res) {
+    console.log('features list func')
     return Feature
       .findAll({
         include: [{

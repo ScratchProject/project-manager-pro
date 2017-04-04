@@ -1,4 +1,5 @@
 const FeatureItem = require('../models').FeatureItem;
+const Feature = require('../models').Feature;
 
 module.exports = {
   // Creates each item on the list each project list
@@ -14,12 +15,16 @@ module.exports = {
 
   // Finds all items in each project, returns the Feature along with its list
   list(req, res) {
-    return Feature
+    //include: [{
+    //  model: FeatureItem,
+    //  as: 'featureItems',
+  //  }],
+    const featId = req.url.split("\/")[3];
+    return FeatureItem
       .findAll({
-        include: [{
-          model: FeatureItem,
-          as: 'featureItems',
-        }],
+        where: {
+          featureId: featId
+        }
       })
       .then(features => res.status(200).send(features))
       .catch(error => res.status(400).send(error));
