@@ -18,7 +18,7 @@ body {
 
 /*Add new feature/project form*/
 
-.feature-form {
+.feature-form, .loginContainer{
   margin: 10px;
   width: 500px;
   height: 300px;
@@ -64,7 +64,7 @@ body {
   border: 1px solid #EA0C3A;
 }
 
-#add-feature {
+#add-feature, #login {
   margin: 10px 0 10px 0;
   width: 150px;
   height: 50px;
