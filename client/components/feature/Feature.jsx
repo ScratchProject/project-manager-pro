@@ -29,7 +29,7 @@ class Feature extends Component {
         <div className="tracker-container">
           <RemoveFeature index={this.props.index} removeFeature={this.props.removeFeature} />
           <Timer duration={this.props.deadline} elapsed={this.state.elapsed} />
-          <Progress />
+          <Progress percentComplete={this.props.percentComplete}/>
 
           <InfoBtn index={this.props.index} showUpdateForm={this.props.showUpdateForm}/>
 

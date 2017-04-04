@@ -16,12 +16,14 @@ class App extends Component {
       features: featuresList,
       isProjView: true,
       editID: null,
-      featItems: null
+      featItems: null,
+      showItemConstructor: false,
     };
     this.addFeature = this.addFeature.bind(this);
     this.removeFeature = this.removeFeature.bind(this);
     this.showUpdateForm = this.showUpdateForm.bind(this);
     this.removeTask = this.removeTask.bind(this);
+    this.constructorToggle = this.constructorToggle.bind(this);
   }
 
   componentDidMount() {
@@ -99,6 +101,14 @@ class App extends Component {
       .delete(`/api/features/${featID}/items/${taskID}`)
   }
 
+  constructorToggle() {
+    let newBool = this.state.showItemConstructor ? false : true;
+    console.log('fuck yeaaaaa bijjjjjjj');
+    this.setState({
+      showItemConstructor: newBool
+    })
+  }
+
   render() {
 
     const addFeature = this.addFeature;
@@ -113,7 +123,7 @@ class App extends Component {
     )
     : (
       <div id="app-container" style={{ textAlign: 'center' }}>
-        <UpdateForm feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
+        <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
       </div>
     );
 

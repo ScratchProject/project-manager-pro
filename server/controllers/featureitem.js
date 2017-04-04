@@ -4,12 +4,15 @@ const Feature = require('../models').Feature;
 module.exports = {
   // Creates each item on the list each project list
   create(req, res) {
+    console.log(typeof req.params.featureId);
     return FeatureItem
       .create({
         content: req.body.content,
         featureId: req.params.featureId,
       })
-      .then(featureItem => res.status(201).send(featureItem))
+      .then(featureItem => res.status(201)
+      //.send(featureItem)
+    )
       .catch(error => res.status(400).send(error));
   },
 
@@ -32,14 +35,15 @@ module.exports = {
 
   // Update a single feature list item
   update(req, res) {
+    console.log('----------------UPDATE METHOD----------------')
     return FeatureItem
       .findAll({
         where: {
           featureId: req.params.featureId,
+          id: req.params.featureItemId
         },
       })
       .then(featureItems => {
-
         // loop and find where featureItems id is equal to parameter id
         for (let i = 0; i < featureItems.length; i += 1) {
           if (!featureItems[i]) {
@@ -48,16 +52,25 @@ module.exports = {
             });
           }
           if (featureItems[i].id == req.params.featureItemId) {
+            console.log('passing req body to update method:', req.body);
+            const updateObj = {
+              content: req.body.content
+            }
+            if (Array.isArray(req.body.complete)) updateObj.complete = true;
+            else updateObj.complete = false;
+
             return featureItems[i]
-              .update(req.body, { fields: Object.keys(req.body) })
+              .update(updateObj, { fields: Object.keys(req.body) })
               .then(updatedFeatureItem => {
+                console.log('UPDATED F YESSSSS')
                 // find how many tasks have been completed
                 let completed = 0;
                 featureItems.forEach(item => {
                   if (item.complete) completed += 1;
                 })
                 // return percentage of compeleted tasks
-                res.status(200).json(completed/featureItems.length * 100)
+                res.status(200)
+                //.json(completed/featureItems.length * 100)
               })
               .catch(error => res.status(400).send(error));
           }
