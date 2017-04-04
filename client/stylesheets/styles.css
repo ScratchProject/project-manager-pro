@@ -125,6 +125,14 @@ body {
   border: 1px solid white;
 }
 
+.update-form-button {
+  color: white;
+  padding: 5px;
+  background: transparent;
+  border-style: none;
+  border: 1px solid white;
+}
+
 /*Layout/Styling for feature/project*/
 .feature-container {
   margin-bottom: 40px;

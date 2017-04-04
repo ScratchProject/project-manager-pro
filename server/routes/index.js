@@ -42,5 +42,5 @@ module.exports = (app) => {
   app.delete('/api/features/:featureId/items/:featureItemId', featureItemsController.destroy);
 
   // Update a single feature list items
-  app.put('/api/features/:featureId/items/:featureItemId', featureItemsController.update);
+  app.post('/api/features/:featureId/items/:featureItemId', featureItemsController.update);
 };

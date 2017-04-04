@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Item from './Item.jsx';
+import NewTask from './NewTask.jsx';
 
 // need a list of tasks
 // need access to duration
@@ -11,10 +12,16 @@ const UpdateForm = (props) => {
     items.push(<Item key={i} myID={item.id} description={item.content} complete={item.complete} featID={item.featureId} remove={props.removeItem}/>)
   })
 
+  console.log('featureItems:', props.featItems);
+
+  if (props.showItemConstructor) {
+    items.push(<NewTask key={props.featItems.length} featID={props.feat}/>)
+  }
+
   return (
     <div>
     {items}
-    <button>Update All</button>
+    <button className="update-form-button" onClick={props.constructorToggle}>Make New Task</button>
     </div>
   );
 }
