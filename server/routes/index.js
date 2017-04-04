@@ -1,5 +1,6 @@
 const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
+const request = require('request');
 
 module.exports = (app) => {
   // logger function to debug through middleware
@@ -9,14 +10,28 @@ module.exports = (app) => {
     next()
   }
 
-  app.get('/OAuth', (req, res, next)=>{
-    console.log('we are in the login route');
-    var url = req.url;
-    var code = url.substring(url.indexOf("=")+1,url.length);
-    console.log(code);
+  app.get('/OAuth', (req, res, next) => {
+    // https://github.com/login/oauth/authorize?client_id=35add40e3b7a5d3457eb&redirect_uri=http://localhost:8000/OAuth
+    var uri = req.url;
+    var code = uri.substring(uri.indexOf("=") + 1, uri.length);
+    // get below info from https://github.com/settings/applications/506837
+    var client_id = "35add40e3b7a5d3457eb";
+    var redirect_uri = "http://localhost:8000/OAuth";
+    var client_secret = "f129ad0c4e493bb07931cbb7278206d5d7004d73";
+    var post_uri = "https://github.com/login/oauth/access_token?client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&client_secret=" + client_secret + "&code=" + code;
+    // console.log(post_uri);
+
+    request(post_uri, function (error, response, body) {
+      if (error) {
+        console.log('*Error occurred in request to Github for access token...', error);
+      }
+      else {
+        console.log('*Status code is...', response && response.statusCode); // Print the response status code if a response was received
+        var access_token = body.substring(body.indexOf("=") + 1, body.indexOf("&"));
+      }
+    });
   });
-  // run logger every time a middleware is called
-  // app.use(myLogger)
+
   // Save one feature title and the deadline to the database
   app.post('/api/features', featuresController.create);
 
