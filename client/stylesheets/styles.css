@@ -18,7 +18,7 @@ body {
 
 /*Add new feature/project form*/
 
-.feature-form {
+.feature-form, .loginContainer{
   margin: 10px;
   width: 500px;
   height: 300px;
@@ -67,32 +67,7 @@ body {
 }
 
 
-.deadline-num{
-  margin: 10px 0 10px 0;
-  padding-left: 5px;
-  width: 300px;
-  height: 50px;
-  color: white;
-  font-size: 20px;
-  background: transparent;
-  border-style: none;
-  border-width:0px;
-}
-
-.deadline-unit{
-  margin: 10px 0 10px 0;
-  padding-left: 5px;
-  padding-right: 5px;
-  width: 100px;
-  height: 50px;
-  color: grey;
-  font-size: 20px;
-  background: transparent;
-  border-style: none;
-  border-width:0px;
-}
-
-#add-feature {
+#add-feature, #login {
   margin: 10px 0 10px 0;
   width: 150px;
   height: 50px;

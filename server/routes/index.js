@@ -8,6 +8,13 @@ module.exports = (app) => {
     console.log('LOGGED')
     next()
   }
+
+  app.get('/OAuth', (req, res, next)=>{
+    console.log('we are in the login route');
+    var url = req.url;
+    var code = url.substring(url.indexOf("=")+1,url.length);
+    console.log(code);
+  });
   // run logger every time a middleware is called
   app.use(myLogger)
   // Save one feature title and the deadline to the database
