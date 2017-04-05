@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FeaturesCntr from './feature/FeaturesCntr.jsx';
 import AddFeature from './add_feature/AddFeature.jsx';
 import CheckpointCntr from './checkpoint/CheckpointCntr.jsx';
+import UpdateForm from './feature/UpdateForm.jsx'
 import axios from 'axios';
 
 // This array is constant. We add and remove from it and then use it to set state.
@@ -12,14 +13,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      features: featuresList
+      features: featuresList,
+      isProjView: true,
+      editID: null,
+      featItems: null,
+      showItemConstructor: false,
     };
     this.addFeature = this.addFeature.bind(this);
     this.removeFeature = this.removeFeature.bind(this);
+    this.showUpdateForm = this.showUpdateForm.bind(this);
+    this.removeTask = this.removeTask.bind(this);
+    this.constructorToggle = this.constructorToggle.bind(this);
   }
 
   componentDidMount() {
-    // retieve all the features from the database and load the initial state
+    // retrieve all the features from the database and load the initial state
     // this only runs on the first load of the page
     axios
       .get('/api/features')
@@ -30,7 +38,7 @@ class App extends Component {
           let createdTime = Date.parse(allFeatures.data[i].createdAt);
           let currentTime = Date.now();
           let elapsed = (currentTime - createdTime) / 1000; // converts ms to secs
-          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed; 
+          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed;
         }
 
         featuresList = allFeatures.data;
@@ -42,10 +50,11 @@ class App extends Component {
   }
 
   // adds a new feature(project) to the DOM as well as pushes it to the database
-  addFeature(title, duration) {
+  addFeature(title, duration, unit) {
     let feature = {
       title: title,
-      duration: Number(duration)
+      duration: Number(duration),
+      unit: unit
     }
 
     axios
@@ -76,17 +85,55 @@ class App extends Component {
       })
   }
 
+  showUpdateForm(index) {
+    console.log('index is:', index);
+    axios
+      .get(`/api/features/${featuresList[index].id}/items`)
+      .then(data => {
+        this.setState({isProjView: false, editID: index, featItems: data.data});
+        console.log('---------------------------------feature items data-------------------------', data.data);
+      })
+      .catch()
+  }
+
+  removeTask(featID, taskID) {
+    axios
+      .delete(`/api/features/${featID}/items/${taskID}`)
+      // .then(() => {
+      //   this.setState({})
+      // })
+  }
+
+  constructorToggle() {
+    let newBool = this.state.showItemConstructor ? false : true;
+    console.log('fuck yeaaaaa bijjjjjjj');
+    this.setState({
+      showItemConstructor: newBool
+    })
+  }
 
   render() {
-    
+
     const addFeature = this.addFeature;
     const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;
+    const jsxToRender = this.state.isProjView
+    ? (
+      <div id="app-container" style={{ textAlign: 'center' }}>
+      <CheckpointCntr addFeature={addFeature} />
+      <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
+    </div>
+    )
+    : (
+      <div id="app-container" style={{ textAlign: 'center' }}>
+        <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
+      </div>
+    );
+
 
     return (
-      <div id="app-container" style={{ textAlign: 'center' }}>
-        <CheckpointCntr addFeature={addFeature} />
-        <FeaturesCntr featuresArray={featuresArray} removeFeature={removeFeature} />
+      <div>
+        {jsxToRender}
       </div>
     );
   }

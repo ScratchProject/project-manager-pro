@@ -4,6 +4,7 @@ html, body {
 }
 body {
   background: #353638;
+  font-family: Verdana, Geneva, sans-serif;
 }
 /*styling/layout for features/projects container (holds all features/projects)*/
 #features-ctnr {
@@ -18,7 +19,7 @@ body {
 
 /*Add new feature/project form*/
 
-.feature-form {
+.feature-form, .loginContainer{
   margin: 10px;
   width: 500px;
   height: 300px;
@@ -47,24 +48,27 @@ body {
   border: 1px solid #EA0C3A;
 }
 
-.deadline {
+.deadline-container {
   margin: 10px 0 10px 0;
   padding-left: 5px;
   width: 400px;
   height: 50px;
   color: white;
   font-size: 20px;
+  justify-content: center;
+  align-items: center;
   background: transparent;
   border-style: none;
   border-radius: 5px;
   border: 1px solid white;
 }
 
-.deadline:hover {
+.deadline-container:hover {
   border: 1px solid #EA0C3A;
 }
 
-#add-feature {
+
+#add-feature, #login {
   margin: 10px 0 10px 0;
   width: 150px;
   height: 50px;
@@ -106,6 +110,10 @@ body {
   display: flex;
 }
 
+.dropdown-container{
+  display: flex;
+}
+
 .feature-sbm-btn-cntr {
   display: flex;
 }
@@ -116,6 +124,60 @@ body {
   background: transparent;
   border-style: none;
   border: 1px solid white;
+}
+
+.update-form {
+  display: inline-block;
+}
+
+.update-form-button {
+  display: inline-block;
+  color: white;
+  padding: 5px;
+  background: transparent;
+  border-style: none;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.update-form-button:hover {
+  color: #A0FF00;
+  border: 1px solid #A0FF00;
+}
+
+.new-task {
+  display: block;
+  position: relative;
+}
+
+.existing-task {
+  display: block;
+  position: relative;
+  width: 75%;
+
+
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-bottom: 1px solid red;
+}
+
+#update-form {
+  text-align: center;
+  margin-top: 50px;
+  color: white;
+}
+
+.update-form input {
+  margin-left: 10px;
+  margin-right: 10px;
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 
 /*Layout/Styling for feature/project*/
@@ -227,4 +289,15 @@ body {
   stroke: #EA0C3A;
   stroke-linecap: round;
   transition: stroke-dashoffset 0.5s ease 0s;
+}
+a:link {
+  text-decoration: none;
+  color: inherit;
+  background-color: white;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+
 }

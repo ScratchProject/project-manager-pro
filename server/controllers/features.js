@@ -4,18 +4,31 @@ const FeatureItem = require('../models').FeatureItem;
 module.exports = {
 
   // Creates instance of a project.
-  create(req, res) {
+  create(req, res, next) {
+    console.log("we are in the features create function");
+    console.log(req.body.title);
+    console.log(req.body.duration);
+    console.log(req.body.unit);
+    function calculateDurationInSeconds(duration, unit) {
+      if (unit === "Minutes") duration *= 60;
+      if (unit === "Hours") duration *= 3600;
+      if (unit === "Days") duration *= 86400;
+      return duration // in seconds
+    }
+    var duration = calculateDurationInSeconds(req.body.duration, req.body.unit);
     return Feature
       .create({
         title: req.body.title,
-        duration: req.body.duration
+        duration: duration
       })
       .then(feature => res.status(201).send(feature))
       .catch(error => res.status(400).send(error));
+    // .catch(error => res.status(400).send(error));
   },
 
   // Retrieves all current projects in a database.
-  list(req, res) {
+  list(req, res, next) {
+    console.log('features list func')
     return Feature
       .findAll({
         include: [{
@@ -28,7 +41,7 @@ module.exports = {
   },
 
   // Find a single feature based on its ID
-  retrieve(req, res) {
+  retrieve(req, res, next) {
     return Feature
       .findById(req.params.featureId, {
         include: [{
@@ -48,7 +61,7 @@ module.exports = {
   },
 
   // Update a single feature
-  update(req, res) {
+  update(req, res, next) {
     return Feature
       .findById(req.params.featureId, {
         include: [{
@@ -73,20 +86,20 @@ module.exports = {
   },
 
   // Delete a single feature based on ID
-  destroy(req, res) {
-  return Feature
-    .findById(req.params.featureId)
-    .then(feature => {
-      if (!feature) {
-        return res.status(400).send({
-          message: 'feature Not Found',
-        });
-      }
-      return feature
-        .destroy()
-        .then(() => res.status(200).send({ message: 'Feature deleted' }))
-        .catch(error => res.status(400).send(error));
-    })
-    .catch(error => res.status(400).send(error));
-},
+  destroy(req, res, next) {
+    return Feature
+      .findById(req.params.featureId)
+      .then(feature => {
+        if (!feature) {
+          return res.status(400).send({
+            message: 'feature Not Found',
+          });
+        }
+        return feature
+          .destroy()
+          .then(() => res.status(200).send({ message: 'Feature deleted' }))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };
