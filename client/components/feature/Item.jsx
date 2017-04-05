@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 const Item = (props) => {
   console.log('--------------PROPS.REMOVE------------', props.remove);
   return (
-    <div>
-      <form action={`/api/features/${props.featID}/items/${props.myID}`} method="post">
+    <div className="existing-task">
+      <form className="update-form" action={`/api/features/${props.featID}/items/${props.myID}`} method="post">
         <input type="text" defaultValue={props.description} name="content"/>
         <input type="checkbox" name="complete" value={true} defaultChecked={props.complete}/>
         <input type="hidden" name="complete" value={false}/>

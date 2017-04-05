@@ -19,9 +19,10 @@ const UpdateForm = (props) => {
   }
 
   return (
-    <div>
-    {items}
-    <button className="update-form-button" onClick={props.constructorToggle}>Make New Task</button>
+    <div id="update-form">
+      <h2>{props.feat.title}</h2>
+      {items}
+      <button className="update-form-button" onClick={props.constructorToggle}>Make New Task</button>
     </div>
   );
 }

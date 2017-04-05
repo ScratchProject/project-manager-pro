@@ -99,6 +99,9 @@ class App extends Component {
   removeTask(featID, taskID) {
     axios
       .delete(`/api/features/${featID}/items/${taskID}`)
+      // .then(() => {
+      //   this.setState({})
+      // })
   }
 
   constructorToggle() {
