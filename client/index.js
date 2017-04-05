@@ -13,10 +13,8 @@ const app = document.getElementById('root');
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/" component={App}></Route>
-    <Route path="/login" name="login" component={LoginPage}></Route>
-    
-  
+    <Route path="/" name="login" component={LoginPage}></Route>
+    <Route path="/app" component={App}></Route>
   </Router>
   ,
-app);
+  app);

@@ -36,9 +36,9 @@ module.exports = (app) => {
         console.log('*Error occurred in request to Github for access token...', error);
       }
       else {
-        console.log('*Status code is...', response && response.statusCode); // Print the response status code if a response was received
+        // console.log('*Status code is...', response && response.statusCode); // Print the response status code if a response was received
         var access_token = body.substring(body.indexOf("=") + 1, body.indexOf("&"));
-        console.log("*We are in the response from Github" + access_token);
+        // console.log("*We are in the response from Github" + access_token);
         res.locals.access_token = access_token;
         return next();
       }
@@ -46,12 +46,10 @@ module.exports = (app) => {
   }, cookieController.setCookie, sessionController.create, (req, res, next) => {
     console.log("*we are in the final step");
     res.status(200);
-    // res.send();
-    res.redirect('/');
+    res.redirect('/#/app');
     // res.render('./../../index.html');
     // res.render("http://localhost:8000/#/");
   });
-
   // Verify user, else direct them to login page
   // Save projects to collection associated with User
 

@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-class LoginPage extends React.Component{
-    constructor(props){
+class LoginPage extends React.Component {
+    constructor(props) {
         super(props);
     }
-    
+
     // THIS IS WHEN WE TRIED TO GET TO POST TO THE GITHUB LINK
     // goToGithub(){
     //     console.log('---------YOU PRESSED THE GITHUB BUTTON!!');
@@ -48,11 +48,11 @@ class LoginPage extends React.Component{
         );
     }*/
 
-    render(){
+    render() {
         var URL = "https://github.com/login/oauth/authorize?client_id=35add40e3b7a5d3457eb&redirect_uri=http://localhost:8000/OAuth";
-        return(
+        return (
             <section className="loginContainer">
-            <a href={URL}>Login With GitHub</a>
+                <a href={URL}>Login With GitHub</a>
             </section>
         );
     }

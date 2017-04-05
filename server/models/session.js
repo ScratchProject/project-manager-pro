@@ -11,10 +11,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return Session;
 };
-
-// sequelize db:migrate to get the migration files
-
-// CREATE TABLE "Session"(
-//    cookieId CHAR(50)  PRIMARY KEY  NOT NULL,
-//    createdAt  DATE  NOT NULL
-// );
