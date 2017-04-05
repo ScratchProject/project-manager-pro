@@ -6,13 +6,10 @@ import NewTask from './NewTask.jsx';
 // need access to duration
 
 const UpdateForm = (props) => {
-  console.log('-----------------REMOVEITEM--------------', props.removeItem);
   const items = [];
   props.featItems.forEach((item, i) => {
-    items.push(<Item key={i} myID={item.id} description={item.content} complete={item.complete} featID={item.featureId} remove={props.removeItem}/>)
+    items.push(<Item key={i} myID={item.id} description={item.content} complete={item.complete} featID={item.featureId} remove={props.removeItem} index={props.index}/>)
   })
-
-  console.log('featureItems:', props.featItems);
 
   if (props.showItemConstructor) {
     items.push(<NewTask key={props.featItems.length} featID={props.feat}/>)

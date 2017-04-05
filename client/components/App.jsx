@@ -60,13 +60,25 @@ class App extends Component {
     axios
       .post('/api/features', feature)
       .then((newFeature) => {
+        axios
+          .get('/api/features')
+          .then((allFeatures) => {
 
-        featuresList.push(newFeature.data);
-        console.log(newFeature.data);
-        this.setState({ features: featuresList }, () => {
-          console.log('New Feature Added');
-          console.log(this.state.features);
-        })
+            // calculates the total amount of time since the project was created and renders the correct time (red circle)
+            for (let i = 0; i < allFeatures.data.length; i += 1) {
+              let createdTime = Date.parse(allFeatures.data[i].createdAt);
+              let currentTime = Date.now();
+              let elapsed = (currentTime - createdTime) / 1000; // converts ms to secs
+              allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed;
+            }
+
+            featuresList = allFeatures.data;
+
+            this.setState({
+              features: featuresList,
+            })
+          })
+
       })
   }
 
@@ -96,12 +108,38 @@ class App extends Component {
       .catch()
   }
 
-  removeTask(featID, taskID) {
+  removeTask(index, featID, taskID) {
+    // const tasks = [];
+    // console.log('featureItems:');
+    // featuresList[index].featureItems.forEach((task, i) => {
+    //   console.log('Want to delete task ID:', taskID);
+    //   console.log('current task ID:', task.id);
+    //   if (!(task.id === taskID)) {
+    //     console.log('Pushing task into the array because we dont want to delete it');
+    //     tasks.push(task);
+    //   } else {
+    //     console.log('Getting rid of featureItem');
+    //     featuresList[index].featureItems.splice(i,1);
+    //   }
+    //   console.log('---------------------------');
+    // });
+    console.log(featuresList[index].featureItems);
     axios
       .delete(`/api/features/${featID}/items/${taskID}`)
-      // .then(() => {
-      //   this.setState({})
-      // })
+      .then(() => {
+        console.log('hopefully nothing happened');
+        console.log('Is this an array with the task to remove?', document.querySelector(`[task-num="${taskID}"]`));
+        // let spliceNum;
+        // featuresList[index].featureItems.forEach((task, i) => {
+        //   if (task.id === taskID) spliceNum = i;
+        // })
+        // featuresList[index].featureItems.splice(spliceNum, 1);
+        // console.log("updated featItems:", featuresList[index].featureItems)
+        // this.setState({
+        //   features: featuresList,
+        //   featItems: featuresList[index].featureItems
+        // });
+      });
   }
 
   constructorToggle() {
@@ -126,7 +164,7 @@ class App extends Component {
     )
     : (
       <div id="app-container" style={{ textAlign: 'center' }}>
-        <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
+        <UpdateForm index={this.state.editID} showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
       </div>
     );
 
