@@ -6,6 +6,7 @@ const Item = (props) => {
   function removal() {
     props.remove(props.index, props.featID, props.myID);
   }
+  console.log('within Item, featID is:', props.featID);
   return (
     <div className="existing-task" taskNum={props.myID}>
       <form className="update-form" action={`/api/features/${props.featID}/items/${props.myID}`} method="post">

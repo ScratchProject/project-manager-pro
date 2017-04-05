@@ -8,6 +8,7 @@ import NewTask from './NewTask.jsx';
 const UpdateForm = (props) => {
   const items = [];
   props.featItems.forEach((item, i) => {
+    console.log('item featureId', item.featureId);
     items.push(<Item key={i} myID={item.id} description={item.content} complete={item.complete} featID={item.featureId} remove={props.removeItem} index={props.index}/>)
   })
 
