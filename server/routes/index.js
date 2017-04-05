@@ -1,9 +1,17 @@
+const express = require('express');
 const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
 const cookieController = require('../controllers').cookie;
 const sessionController = require('../controllers').session;
 const request = require('request');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const path = require('path');
+const app = express();
 
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'html');
 
 module.exports = (app) => {
   // logger function to debug through middleware
@@ -38,7 +46,14 @@ module.exports = (app) => {
   }, cookieController.setCookie, sessionController.create, (req, res, next) => {
     console.log("*we are in the final step");
     res.status(200);
+    // res.send();
+    res.redirect('/');
+    // res.render('./../../index.html');
+    // res.render("http://localhost:8000/#/");
   });
+
+  // Verify user, else direct them to login page
+  // Save projects to collection associated with User
 
   // Save one feature title and the deadline to the database
   app.post('/api/features', featuresController.create);
