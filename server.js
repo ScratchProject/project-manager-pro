@@ -10,7 +10,7 @@ const port = parseInt(process.env.PORT, 10) || 8000;
 app.set('port', port);
 
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

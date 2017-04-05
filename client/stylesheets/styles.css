@@ -243,3 +243,14 @@ body {
   stroke-linecap: round;
   transition: stroke-dashoffset 0.5s ease 0s;
 }
+a:link {
+  text-decoration: none;
+  color: inherit;
+  background-color: white;
+  color: white;
+  padding: 14px 25px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+
+}
