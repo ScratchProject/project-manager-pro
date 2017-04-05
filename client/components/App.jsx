@@ -24,6 +24,7 @@ class App extends Component {
     this.showUpdateForm = this.showUpdateForm.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.constructorToggle = this.constructorToggle.bind(this);
+    this.escapeUpdateView = this.escapeUpdateView.bind(this);
   }
 
   componentDidMount() {
@@ -112,6 +113,12 @@ class App extends Component {
     })
   }
 
+  escapeUpdateView() {
+    console.log('You hit the escape button!');
+    //-----------HERE
+    this.setState({isProjView: true});
+  }
+
   render() {
 
     const addFeature = this.addFeature;
@@ -126,7 +133,7 @@ class App extends Component {
     )
     : (
       <div id="app-container" style={{ textAlign: 'center' }}>
-        <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
+        <UpdateForm escapeUpdateView={this.escapeUpdateView} showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
       </div>
     );
 

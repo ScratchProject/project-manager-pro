@@ -130,7 +130,7 @@ body {
   display: inline-block;
 }
 
-.update-form-button {
+.update-form-button, .escape-button {
   display: inline-block;
   color: white;
   padding: 5px;
@@ -143,6 +143,16 @@ body {
 .update-form-button:hover {
   color: #A0FF00;
   border: 1px solid #A0FF00;
+}
+.escape-button{
+  position: absolute;
+  right: 10px;
+  margin-right: 10%;
+}
+
+.escape-button:hover {
+  color: #EA0C3A;
+  border: 1px solid #EA0C3A;
 }
 
 .new-task {
@@ -300,4 +310,10 @@ a:link {
   display: inline-block;
   border-radius: 5px;
 
+}
+.github-logo{
+ height: 50px;
+ margin-top:10px;
+ background: #353638;
+ border-radius: 100%;
 }
