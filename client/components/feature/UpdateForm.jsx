@@ -20,6 +20,7 @@ const UpdateForm = (props) => {
 
   return (
     <div id="update-form">
+      <button onClick={props.escapeUpdateView} className="escape-button">Escape</button>
       <h2>{props.feat.title}</h2>
       {items}
       <button className="update-form-button" onClick={props.constructorToggle}>Make New Task</button>
