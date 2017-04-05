@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import FeaturesCntr from './feature/FeaturesCntr.jsx';
 import AddFeature from './add_feature/AddFeature.jsx';
@@ -97,9 +98,12 @@ class App extends Component {
       .catch()
   }
 
-  removeTask(featID, taskID) {
+  removeTask(index, featID, taskID) {
     axios
       .delete(`/api/features/${featID}/items/${taskID}`)
+      .then(() => {
+        axios.get('/').then(this.setState({isProjView: true}))
+      })
       // .then(() => {
       //   this.setState({})
       // })
@@ -116,7 +120,10 @@ class App extends Component {
   escapeUpdateView() {
     console.log('You hit the escape button!');
     //-----------HERE
-    this.setState({isProjView: true});
+    //this.setState({isProjView: true});
+    axios
+      .get('/')
+      .then(this.setState({isProjView: true}));
   }
 
   render() {

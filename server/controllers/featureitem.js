@@ -10,9 +10,10 @@ module.exports = {
         content: req.body.content,
         featureId: req.params.featureId,
       })
-      .then(featureItem => res.status(201)
-      //.send(featureItem)
-    )
+      .then(featureItem => {
+        res.status(201);
+        res.redirect('/');
+      })
       .catch(error => res.status(400).send(error));
   },
 
@@ -70,6 +71,7 @@ module.exports = {
                 })
                 // return percentage of compeleted tasks
                 res.status(200)
+                res.redirect('/');
                 //.json(completed/featureItems.length * 100)
               })
               .catch(error => res.status(400).send(error));
@@ -81,6 +83,9 @@ module.exports = {
 
   // Remove a single feature list item
   destroy(req, res, next) {
+    console.log('req.url:', req.url);
+    console.log('req.params.featureItemId', req.params.featureItemId);
+    console.log('req.params.featureId', req.params.featureId);
     return FeatureItem
       .find({
         where: {
@@ -89,6 +94,7 @@ module.exports = {
         },
       })
       .then(featureItem => {
+        console.log('++++++++++SECOND+++++++++');
         if (!featureItem) {
           return res.status(404).send({
             message: 'FeatureItem Not Found',
@@ -96,9 +102,15 @@ module.exports = {
         }
         return featureItem
           .destroy()
-          .then(() => res.status(204).send({ message: 'Feature Item Removed Successfully' }))
+          .then(() => {
+            console.log('================got to right spot===============')
+            res.status(204).send({ message: 'Feature Item Removed Successfully' })
+          })
           .catch(error => res.status(400).send(error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => {
+        console.log('-----------well shit--------', error);
+        res.status(400).send(error)
+      });
   },
 };
