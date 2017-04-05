@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     createdAt: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATE,
       defaultValue: 0,
     }
   });

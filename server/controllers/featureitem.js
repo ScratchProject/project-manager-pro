@@ -3,7 +3,7 @@ const Feature = require('../models').Feature;
 
 module.exports = {
   // Creates each item on the list each project list
-  create(req, res) {
+  create(req, res, next) {
     console.log(typeof req.params.featureId);
     return FeatureItem
       .create({
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   // Finds all items in each project, returns the Feature along with its list
-  list(req, res) {
+  list(req, res, next) {
     //include: [{
     //  model: FeatureItem,
     //  as: 'featureItems',
@@ -34,7 +34,7 @@ module.exports = {
   },
 
   // Update a single feature list item
-  update(req, res) {
+  update(req, res, next) {
     console.log('----------------UPDATE METHOD----------------')
     return FeatureItem
       .findAll({
@@ -80,7 +80,7 @@ module.exports = {
   },
 
   // Remove a single feature list item
-  destroy(req, res) {
+  destroy(req, res, next) {
     return FeatureItem
       .find({
         where: {
@@ -94,7 +94,6 @@ module.exports = {
             message: 'FeatureItem Not Found',
           });
         }
-
         return featureItem
           .destroy()
           .then(() => res.status(204).send({ message: 'Feature Item Removed Successfully' }))
@@ -102,5 +101,4 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-
 };

@@ -4,7 +4,7 @@ const FeatureItem = require('../models').FeatureItem;
 module.exports = {
 
   // Creates instance of a project.
-  create(req, res) {
+  create(req, res, next) {
     console.log("we are in the features create function");
     console.log(req.body.title);
     console.log(req.body.duration);
@@ -27,7 +27,7 @@ module.exports = {
   },
 
   // Retrieves all current projects in a database.
-  list(req, res) {
+  list(req, res, next) {
     console.log('features list func')
     return Feature
       .findAll({
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   // Find a single feature based on its ID
-  retrieve(req, res) {
+  retrieve(req, res, next) {
     return Feature
       .findById(req.params.featureId, {
         include: [{
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   // Update a single feature
-  update(req, res) {
+  update(req, res, next) {
     return Feature
       .findById(req.params.featureId, {
         include: [{
@@ -86,7 +86,7 @@ module.exports = {
   },
 
   // Delete a single feature based on ID
-  destroy(req, res) {
+  destroy(req, res, next) {
     return Feature
       .findById(req.params.featureId)
       .then(feature => {
