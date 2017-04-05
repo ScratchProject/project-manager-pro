@@ -1,5 +1,6 @@
 const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
+const userController = require('../controllers/userController.js');
 
 module.exports = (app) => {
   // Save one feature title and the deadline to the database
@@ -25,4 +26,16 @@ module.exports = (app) => {
 
   // Update a single feature list items
   app.put('/api/features/:featureId/items/:featureItemId', featureItemsController.update);
+
+  //Saves a user to the database with a username, password, and (optional) teamName
+  app.post('/createUser', (req, res, next) => {console.log('USER CONTROLLER', typeof userController.create); next()},  userController.create);
+
+  //Checks if user login information is valid submission in database
+  app.post('/verifyUser', userController.verify);
+
+  //Update user info in database
+  app.put('api/user/:username', userController.update);
+
+  //Delete user from database
+  app.delete('api/user/:username', userController.destroy);
 };
