@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import FeaturesCntr from './feature/FeaturesCntr.jsx';
 import AddFeature from './add_feature/AddFeature.jsx';
 import CheckpointCntr from './checkpoint/CheckpointCntr.jsx';
-import UpdateForm from './feature/UpdateForm.jsx'
+import UpdateForm from './feature/UpdateForm.jsx';
+import LoginPage from './Login/LoginPage.jsx';
 import axios from 'axios';
 
 // This array is constant. We add and remove from it and then use it to set state.
@@ -13,6 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadLogin: false,
       features: featuresList,
       isProjView: true,
       editID: null,
@@ -44,7 +46,15 @@ class App extends Component {
         featuresList = allFeatures.data;
 
         this.setState({
+          loadLogin: false,
           features: featuresList,
+        })
+      }).catch((err) => {
+        console.log("are we catching?");
+        // axios
+        //   .get('/').then((param) => { console.log("we are rerouting to the login page"); });
+        this.setState({
+          loadLogin: true
         })
       })
   }
@@ -90,7 +100,7 @@ class App extends Component {
     axios
       .get(`/api/features/${featuresList[index].id}/items`)
       .then(data => {
-        this.setState({isProjView: false, editID: index, featItems: data.data});
+        this.setState({ isProjView: false, editID: index, featItems: data.data });
         console.log('---------------------------------feature items data-------------------------', data.data);
       })
       .catch()
@@ -99,9 +109,9 @@ class App extends Component {
   removeTask(featID, taskID) {
     axios
       .delete(`/api/features/${featID}/items/${taskID}`)
-      // .then(() => {
-      //   this.setState({})
-      // })
+    // .then(() => {
+    //   this.setState({})
+    // })
   }
 
   constructorToggle() {
@@ -117,19 +127,31 @@ class App extends Component {
     const addFeature = this.addFeature;
     const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;
-    const jsxToRender = this.state.isProjView
-    ? (
-      <div id="app-container" style={{ textAlign: 'center' }}>
-      <CheckpointCntr addFeature={addFeature} />
-      <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
-    </div>
-    )
-    : (
-      <div id="app-container" style={{ textAlign: 'center' }}>
-        <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask}/>
-      </div>
-    );
+    const jsxToRender = this.state.loadLogin ? <LoginPage /> : (this.state.isProjView
+      ? (
+        <div id="app-container" style={{ textAlign: 'center' }}>
+          <CheckpointCntr addFeature={addFeature} />
+          <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
+        </div>
+      )
+      : (
+        <div id="app-container" style={{ textAlign: 'center' }}>
+          <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask} />
+        </div>
+      ))
 
+    /*const jsxToRender = this.state.isProjView
+? (
+  <div id="app-container" style={{ textAlign: 'center' }}>
+    <CheckpointCntr addFeature={addFeature} />
+    <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
+  </div>
+)
+: (
+  <div id="app-container" style={{ textAlign: 'center' }}>
+    <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask} />
+  </div>
+);*/
 
     return (
       <div>

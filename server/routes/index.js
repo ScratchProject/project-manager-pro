@@ -2,7 +2,7 @@ const express = require('express');
 const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
 const cookieController = require('../controllers').cookie;
-const sessionController = require('../controllers').session;
+const sessionController = require('../controllers').sessions;
 const request = require('request');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -11,6 +11,7 @@ const app = express();
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.set('view engine', 'html');
 
 module.exports = (app) => {
@@ -20,6 +21,9 @@ module.exports = (app) => {
     console.log('LOGGED')
     next()
   }
+  app.get('/', (req, res, next) => {
+    res.redirect('/#/');
+  });
 
   app.get('/OAuth', (req, res, next) => {
     // https://github.com/login/oauth/authorize?client_id=35add40e3b7a5d3457eb&redirect_uri=http://localhost:8000/OAuth
@@ -57,7 +61,19 @@ module.exports = (app) => {
   app.post('/api/features', featuresController.create);
 
   // Return all of the features currently in the database along with the feature list
-  app.get('/api/features', featuresController.list);
+  app.get('/api/features', (req, res, next) => {
+    console.log(cookieParser);
+    console.log(req['headers']['cookie']);
+    var headerStr = req['headers']['cookie'];
+    if (!headerStr) {
+      console.log("*****no cookie");
+      res.redirect('/#/');
+    } else {
+      var cookieStr = headerStr.substring(headerStr.indexOf("=") + 1, headerStr.length)
+      res.locals.cookieStr = cookieStr;
+      return next();
+    }
+  }, sessionController.isLoggedIn, featuresController.list);
 
   // Add a Feature List Item to the inputted feature ID
   app.post('/api/features/:featureId/items', featureItemsController.create);
