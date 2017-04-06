@@ -5,10 +5,10 @@ module.exports = {
 
   // Creates instance of a project.
   create(req, res, next) {
-    console.log("we are in the features create function");
-    console.log(req.body.title);
-    console.log(req.body.duration);
-    console.log(req.body.unit);
+    // console.log("we are in the features create function");
+    // console.log(req.body.title);
+    // console.log(req.body.duration);
+    // console.log(req.body.unit);
     function calculateDurationInSeconds(duration, unit) {
       console.log('Minutes unit is:', unit)
       if (!unit) unit = "Minutes";
