@@ -10,6 +10,8 @@ module.exports = {
     // console.log(req.body.duration);
     // console.log(req.body.unit);
     function calculateDurationInSeconds(duration, unit) {
+      console.log('Minutes unit is:', unit)
+      if (!unit) unit = "Minutes";
       if (unit === "Minutes") duration *= 60;
       if (unit === "Hours") duration *= 3600;
       if (unit === "Days") duration *= 86400;

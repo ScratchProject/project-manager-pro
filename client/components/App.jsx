@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import FeaturesCntr from './feature/FeaturesCntr.jsx';
 import AddFeature from './add_feature/AddFeature.jsx';
@@ -26,6 +27,7 @@ class App extends Component {
     this.showUpdateForm = this.showUpdateForm.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.constructorToggle = this.constructorToggle.bind(this);
+    this.escapeUpdateView = this.escapeUpdateView.bind(this);
   }
 
   componentDidMount() {
@@ -106,12 +108,12 @@ class App extends Component {
       .catch()
   }
 
-  removeTask(featID, taskID) {
+  removeTask(index, featID, taskID) {
     axios
       .delete(`/api/features/${featID}/items/${taskID}`)
-    // .then(() => {
-    //   this.setState({})
-    // })
+      .then(() => {
+        axios.get('/').then(this.setState({isProjView: true}))
+      })
   }
 
   constructorToggle() {
@@ -122,11 +124,21 @@ class App extends Component {
     })
   }
 
+  escapeUpdateView() {
+    console.log('You hit the escape button!');
+    //-----------HERE
+    //this.setState({isProjView: true});
+    axios
+      .get('/')
+      .then(this.setState({isProjView: true}));
+  }
+
   render() {
 
     const addFeature = this.addFeature;
     const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;
+
     const jsxToRender = this.state.loadLogin ? <LoginPage /> : (this.state.isProjView
       ? (
         <div id="app-container" style={{ textAlign: 'center' }}>
@@ -140,18 +152,8 @@ class App extends Component {
         </div>
       ))
 
-    /*const jsxToRender = this.state.isProjView
-? (
-  <div id="app-container" style={{ textAlign: 'center' }}>
-    <CheckpointCntr addFeature={addFeature} />
-    <FeaturesCntr showUpdateForm={this.showUpdateForm} featuresArray={featuresArray} removeFeature={removeFeature} />
-  </div>
-)
-: (
-  <div id="app-container" style={{ textAlign: 'center' }}>
-    <UpdateForm showItemConstructor={this.state.showItemConstructor} constructorToggle={this.constructorToggle} feat={this.state.features[this.state.editID]} featItems={this.state.featItems} removeItem={this.removeTask} />
-  </div>
-);*/
+
+
 
     return (
       <div>

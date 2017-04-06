@@ -50,9 +50,13 @@ class LoginPage extends React.Component {
 
     render() {
         var URL = "https://github.com/login/oauth/authorize?client_id=35add40e3b7a5d3457eb&redirect_uri=http://localhost:8000/OAuth";
-        return (
+
+        var logoURL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGsPRjgvfUwOENDhNPw2kgEDgpHtV1KAM0ZBWEQBuTVAf4ZtPgoA"
+        return(
             <section className="loginContainer">
-                <a href={URL}>Login With GitHub</a>
+            <a href={URL}>Login With GitHub</a>
+            <img src={logoURL} className="github-logo"/>
+
             </section>
         );
     }
