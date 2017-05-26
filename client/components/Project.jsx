@@ -24,23 +24,19 @@ export default class Project extends Component {
     axios
       .get('/getProject')
       .then((allFeatures) => {
-
         // calculates the total amount of time since the project was created and renders the correct time (red circle)
-
         for (let i = 0; i < allFeatures.data.length; i += 1) {
           let createdTime = Date.parse(allFeatures.data[i].createdAt);
           let currentTime = Date.now();
           let elapsed = (currentTime - createdTime) / 1000; // converts ms to secs
-          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed; 
+          allFeatures.data[i].elapsed = elapsed > allFeatures.data[i].duration ? allFeatures.data[i].duration : elapsed;
         }
 
         featuresList = allFeatures.data;
-        //console.log('*************************', featuresList);
-         let arrayFeatures = [];
+        let arrayFeatures = [];
         for (let key in featuresList) {
           arrayFeatures.push(featuresList[key])
         }
-
         this.setState({
           features: arrayFeatures,
         })
@@ -68,7 +64,7 @@ export default class Project extends Component {
       .then((newFeature) => {
         console.log('FEATURES LIST IS AN ARRYAY?', featuresList);
         //arrayFeatures.push(newFeature.data);
-        this.setState({ 
+        this.setState({
           features: this.state.features.concat(newFeature.data)
         })
       })
@@ -82,28 +78,20 @@ export default class Project extends Component {
     for (let key in this.state.features) {
       arrayFeatures.push(this.state.features[key])
     }
-    console.log('HELLLLLOOOOOOOOOOOOOO');
-
     const deletedFeat = arrayFeatures.splice(index, 1);
-    console.log(deletedFeat, 'DELETED FEAT')
-    
     // sends a request to the server to remove the feature by ID
     axios
-    //.delete('/deleteProject', {params : deletedFeat[0]} )
+      //.delete('/deleteProject', {params : deletedFeat[0]} )
       .delete(`/deleteProject/${deletedFeat[0].title}`)
       .then(() => {
-        console.log('INSIDE THE DELETE THEN');
         this.setState({
           features: arrayFeatures
         })
       })
   }
 
-
   render() {
-    console.log('PROJECT FEATURES STATE', this.props.storedFeatures)
     const addFeature = this.addFeature;
-    //const featuresArray = this.state.features;
     const removeFeature = this.removeFeature;
 
     return (
@@ -114,4 +102,3 @@ export default class Project extends Component {
     );
   }
 }
-

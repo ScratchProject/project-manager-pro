@@ -1,10 +1,8 @@
 const featuresController = require('../controllers').features;
 const featureItemsController = require('../controllers').featureItems;
 const userController = require('../controllers/userController.js');
-// var express = require('express');
-// var router = express.Router();
 
-var db = require('../../userServer/userQueries.js');
+const db = require('../../userServer/userQueries.js');
 
 module.exports = (app) => {
   // Save one feature title and the deadline to the database

@@ -4,7 +4,6 @@ import Progress from './Progress.jsx';
 import InfoBtn from './InfoBtn.jsx';
 import RemoveFeature from './RemoveFeature.jsx'
 
-
 class Feature extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +11,6 @@ class Feature extends Component {
       elapsed: this.props.elapsed
     }
 
-    // Each Feature will have its own pseudo state to update its timer
     let interval = setInterval(() => {
       if (this.state.elapsed >= this.props.deadline) {
         clearInterval(interval);

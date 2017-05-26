@@ -11,7 +11,6 @@ export default class App extends Component {
       view: 'login',
       features: [],
     };
-    
   }
 
   changeView() {
@@ -27,21 +26,19 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('APP STATE FEATURES', this.state.features);
     if (this.state.view === 'login') {
       return (
-        <Login 
+        <Login
           view={this.changeView.bind(this)}
           loadFeatures={this.loadFeatures.bind(this)}
         />
-      ) 
-    } 
+      )
+    }
     if (this.state.view === 'project')
       return (
         <div id="app-container" style={{ textAlign: 'center' }}>
-          <Project storedFeatures={this.state.features}/>
+          <Project storedFeatures={this.state.features} />
         </div>
       );
   }
 }
-

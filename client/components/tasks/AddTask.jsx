@@ -9,17 +9,6 @@ export default class AddTask extends Component {
       categories: ['John', 'Sally', 'Billy', 'Sarah']
     }
   }
-  
-  componentDidMount() {
-    //make sure routing and response object is right
-
-    // axios.get('./getUsers')
-    //   .then(response => {
-    //     this.setState(
-    //     Object.assign({}, this.state, {categories: response.data.categories})
-    //   )
-    // })
-  }
 
   handleSubmit(e) {
     if (this.refs.title.value === ''){
@@ -64,9 +53,3 @@ export default class AddTask extends Component {
     )
   }
 }
-
-
-// AddTask.propTypes = {
-//   categories: React.PropTypes.array,
-//   addProject: React.PropTypes.func 
-// };

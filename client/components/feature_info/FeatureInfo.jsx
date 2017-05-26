@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class FeatureInfo extends Component {
- 
+
   // The 2 handles changes grab the data from the input fields.
   // Handle submit sends the input data back to Project.jsx where we add the new info into the database,
   // and render them on the screen
@@ -31,7 +31,7 @@ class FeatureInfo extends Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.addFeature(this.state.title, this.state.deadline);
-    
+
     this.setState({
       title: '',
       deadline: ''
@@ -39,9 +39,6 @@ class FeatureInfo extends Component {
   }
 
   render() {
-
-
-
     return (
       <form className="feature-form" onSubmit={this.handleSubmit}>
         <div className="title-container">
@@ -50,7 +47,7 @@ class FeatureInfo extends Component {
         <div className="deadline-container">
           <input type="text" className="deadline" placeholder="Duration" value={this.state.deadline} onChange={(a) => this.handleDeadlineChange(a)} />
         </div>
-          <button type='submit' id="add-feature">Add Project</button>
+        <button type='submit' id="add-feature">Add Project</button>
       </form>
     );
   }

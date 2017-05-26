@@ -34,7 +34,6 @@ module.exports = {
         },
       })
       .then(featureItems => {
-
         // loop and find where featureItems id is equal to parameter id
         for (let i = 0; i < featureItems.length; i += 1) {
           if (!featureItems[i]) {
@@ -52,7 +51,7 @@ module.exports = {
                   if (item.complete) completed += 1;
                 })
                 // return percentage of compeleted tasks
-                res.status(200).json(completed/featureItems.length * 100)
+                res.status(200).json(completed / featureItems.length * 100)
               })
               .catch(error => res.status(400).send(error));
           }
@@ -84,5 +83,4 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
-
 };

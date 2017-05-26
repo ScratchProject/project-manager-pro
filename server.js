@@ -1,46 +1,8 @@
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const http = require('http');
-// const cors = require('cors');
-// const mongodb = require('mongodb');
-// const MongoClient = mongodb.MongoClient;
-
-//OLD SQL SETUP
-
-// // Set up the express app
-// const app = express();
-// const port = parseInt(process.env.PORT, 10) || 8000;
-// app.set('port', port);
-
-// // Parse incoming requests data (https://github.com/expressjs/body-parser)
-// app.use(cors());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// // app.use(logger('dev'));
-
-// // Serves all files in the bundle
-// app.use(express.static(path.join(__dirname, './build')));
-
-// // Entry to routes located in ./server/controllers/index.js
-// require('./server/routes')(app);
-
-// const server = http.createServer(app);
-// server.listen(port, () => {
-//   console.log('Listening on port 8000')
-// });
-
-//model dependencies
-// const User = require('./models/userModel');
-// const Feature = require('./models/featureModel');
-// const Item = require('./models/itemModel');
-
-//new MONGO SETUP
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
-const router = express.Router();
 const userController = require('./server/controllers/userMongo');
 const featureController = require('./server/controllers/features');
 
@@ -49,7 +11,7 @@ app.use(bodyParser.json());
 
 let db;
 
-mongoose.connect('mongodb://darrick:123@ds039411.mlab.com:39411/taskify', function (err, database) {
+mongoose.connect('mongodb://darrick:123@ds039411.mlab.com:39411/taskify', (err, database) => {
   if (err) console.log(err);
   else {
     console.log('Connected to DB');
@@ -59,14 +21,13 @@ mongoose.connect('mongodb://darrick:123@ds039411.mlab.com:39411/taskify', functi
 // Serves all files in the bundle
 app.use(express.static(path.join(__dirname, './build')));
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.setHeader(`Access-Control-Allow-Origin`, `*`);
   res.setHeader(`Access-Control-Allow-Credentials`, `true`);
   res.setHeader(`Access-Control-Allow-Methods`, `GET,HEAD,OPTIONS,POST,PUT,DELETE`);
   res.setHeader(`Access-Control-Allow-Headers`, `Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers`);
   next();
 });
-
 
 app.post('/verifyUser', userController.verifyUser);
 

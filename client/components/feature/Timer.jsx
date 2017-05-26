@@ -3,7 +3,6 @@ import CircularProgressbar from 'react-circular-progressbar';
 
 class Timer extends Component {
   render() {
-
     let percent = this.props.elapsed/this.props.duration;
 
     return (
@@ -13,5 +12,4 @@ class Timer extends Component {
    );
   }
 }
-
 export default Timer;
