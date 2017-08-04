@@ -4,15 +4,13 @@ import AddFeature from './add_feature/AddFeature.jsx';
 import CheckpointCntr from './checkpoint/CheckpointCntr.jsx';
 import axios from 'axios';
 
-// This array is constant. We add and remove from it and then use it to set state.
-// By doing this, we do not have to create a new variable each time we want to set state.
 let featuresList = [];
 
 export default class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      features: /* this.props.storedFeatures.data */     featuresList
+      features: featuresList
     };
     this.addFeature = this.addFeature.bind(this);
     this.removeFeature = this.removeFeature.bind(this);
@@ -43,15 +41,6 @@ export default class Project extends Component {
       })
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('shouldComponentUpdate');
-  //   if (nextState.features !== this.state.features) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   // adds a new feature(project) to the DOM as well as pushes it to the database
   addFeature(title, duration) {
     let feature = {
@@ -81,7 +70,6 @@ export default class Project extends Component {
     const deletedFeat = arrayFeatures.splice(index, 1);
     // sends a request to the server to remove the feature by ID
     axios
-      //.delete('/deleteProject', {params : deletedFeat[0]} )
       .delete(`/deleteProject/${deletedFeat[0].title}`)
       .then(() => {
         this.setState({

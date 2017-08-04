@@ -38,7 +38,6 @@ class InfoBtn extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {/* ADD TITLE HERE*/}
                 <h1 className="modal-title" id="myModalLabel">{this.props.title}</h1>
               </div>
               <div className="modal-body">
@@ -47,7 +46,6 @@ class InfoBtn extends Component {
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                {/*=========ADD TASK TO THE SERVER==================*/}
                 <button type="button" data-dismiss="modal" className="btn btn-primary">Save changes</button>
               </div>
             </div>
